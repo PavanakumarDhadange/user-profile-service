@@ -1,10 +1,8 @@
 package com.synchrony.codingchallenege.controller;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,14 +13,12 @@ import com.synchrony.codingchallenege.repository.ImageRepository;
 import com.synchrony.codingchallenege.repository.UserRepository;
 import com.synchrony.codingchallenege.service.UserRegistrationService;
 
-
 import static org.mockito.Mockito.*;
 
 import java.net.URI;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserRegistrationController.class)
-//@SpringBootTest
 public class UserRegistrationControllerTest {
 
 	

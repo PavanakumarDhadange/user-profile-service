@@ -20,7 +20,6 @@ import com.synchrony.codingchallenege.dto.ImageUploadData;
 import com.synchrony.codingchallenege.dto.ImageUploadResponse;
 import com.synchrony.codingchallenege.entity.ImageEntity;
 import com.synchrony.codingchallenege.repository.ImageRepository;
-import com.synchrony.codingchallenege.repository.UserRepository;
 
 @Service(value = "imgurimageservice")
 public class ImageServiceImpl implements ImageService {
@@ -32,7 +31,7 @@ public class ImageServiceImpl implements ImageService {
 	private ImgurAPIService imgurService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private EventPublisherService eventPublisher;
 	
 	@Override
 	public ResponseEntity<String> uploadImage(String userId, MultipartFile imageFile) throws IOException {
@@ -42,11 +41,12 @@ public class ImageServiceImpl implements ImageService {
 			ImageUploadData response = imrur.getBody().getData();
 			ImageEntity imageEntity = new ImageEntity(); 
 			imageEntity.setImageId(response.getImageId());
-			imageEntity.setImageName(imageFile.getName());
+			imageEntity.setImageName(imageFile.getOriginalFilename());
 			imageEntity.setImageDeleteHash(response.getDeleteHash());
 			imageEntity.setUser(userId);
 			imageEntity.setLink(response.getImageLink());
 			imageRepository.save(imageEntity);
+			eventPublisher.publishEvent(userId, imageFile.getOriginalFilename());
 			return new ResponseEntity<String>("Upload Successful", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Upload Failed", HttpStatus.EXPECTATION_FAILED);

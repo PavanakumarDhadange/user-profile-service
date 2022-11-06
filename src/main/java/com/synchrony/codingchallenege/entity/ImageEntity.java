@@ -1,16 +1,20 @@
 package com.synchrony.codingchallenege.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_images")
-public class ImageEntity {
+public class ImageEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3422498735903634708L;
 
 	@Id
 	private String imageId;
